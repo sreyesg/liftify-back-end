@@ -8,7 +8,7 @@ const SALT_VALUE = 10
 
 router.post('/signup', async(req, res) => {
     try {
-        console.log(req.body)
+        
         const userInDatabase = await User.findOne({ username: req.body.username })
         if(userInDatabase){
             res.json({error: "User already exist"})
