@@ -30,7 +30,7 @@ const routineSchema = mongoose.Schema(
         author: {
             type: mongoose.Schema.Types.ObjectId, ref: 'User'
         },
-        excercises: [exerciseSchema]
+        exercises: [exerciseSchema]
     }, 
     { timestamps: true }
 )
