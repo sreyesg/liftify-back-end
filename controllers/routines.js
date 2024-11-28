@@ -42,7 +42,7 @@ router.post('/:routineId', async(req, res) => {
     try {
         const routine = await Routine.findById(req.params.routineId)
         if(!routine.author.equals(req.user._id)){
-            res.status(403).json('Anuthorized to modify this routine')
+            res.status(403).send('Unauthorized to modify this routine')
         }
         const updatedRoutine = await Routine.findByIdAndUpdate(
             req.params.routineId, 
@@ -57,5 +57,19 @@ router.post('/:routineId', async(req, res) => {
     }
 })
 
+router.delete('/:routineId', async(req, res) => {
+    try {
+        const routine = await Routine.findById(req.params.routineId)
+        if(!routine.author.equals(req.user._id)){
+            res.status(403).send("Unauthorized to delete this routine")
+        }
+        const deletedRoutine = await Routine.findByIdAndDelete(req.params.routineId)
+        res.status(200).json(deletedRoutine)
+        
+    } catch (error) {
+        res.status(500).json(error)
+    }
+
+})
 
 module.exports = router
