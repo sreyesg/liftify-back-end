@@ -72,4 +72,18 @@ router.delete('/:routineId', async(req, res) => {
 
 })
 
+router.post('/:routineId/exercises', async(req, res) => {
+    try {
+        req.body.author = req.user._id
+        const routine = await Routine.findById(req.params.routineId)
+        routine.exercises.push(req.body)
+        routine.save()
+        const newExercise = routine.exercises[routine.exercises.length -1]
+        newExercise._doc.author = req.user
+        res.status(200).json(newExercise)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
+
 module.exports = router
