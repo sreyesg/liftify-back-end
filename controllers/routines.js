@@ -38,7 +38,24 @@ router.get('/:routineId', async(req, res) => {
     }
 })
 
+router.post('/:routineId', async(req, res) => {
+    try {
+        const routine = await Routine.findById(req.params.routineId)
+        if(!routine.author.equals(req.user._id)){
+            res.status(403).json('Anuthorized to modify this routine')
+        }
+        const updatedRoutine = await Routine.findByIdAndUpdate(
+            req.params.routineId, 
+            req.body, 
+            {new: true})
 
+            updatedRoutine._doc.author=req.user
+
+        res.status(200).json(updatedRoutine)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+})
 
 
 module.exports = router
