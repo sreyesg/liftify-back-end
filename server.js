@@ -3,7 +3,10 @@ dotenv.config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const testJWTRouter = require('./middleware/verifyToken')
 const usersRouter = require('./controllers/users')
+const routinesRouter = require('./controllers/routines')
+
 
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
@@ -12,7 +15,9 @@ mongoose.connection.on('connected', () => {
 
 
 app.use(express.json())
+app.use('/jwt-test', testJWTRouter)
 app.use('/users', usersRouter)
+app.use('/routines', routinesRouter)
 
 
 
