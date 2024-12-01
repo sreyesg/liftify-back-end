@@ -3,6 +3,7 @@ dotenv.config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const cors = require('cors')
 const testJWTRouter = require('./middleware/verifyToken')
 const usersRouter = require('./controllers/users')
 const routinesRouter = require('./controllers/routines')
@@ -13,7 +14,7 @@ mongoose.connection.on('connected', () => {
     console.log(`connected to ${mongoose.connection.name}`)
 })
 
-
+app.use(cors())
 app.use(express.json())
 app.use('/jwt-test', testJWTRouter)
 app.use('/users', usersRouter)
