@@ -8,6 +8,7 @@ const testJWTRouter = require('./middleware/verifyToken')
 const usersRouter = require('./controllers/users')
 const routinesRouter = require('./controllers/routines')
 
+const PORT = process.env.PORT || 3000
 
 mongoose.connect(process.env.MONGODB_URI)
 mongoose.connection.on('connected', () => {
@@ -27,6 +28,6 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(3000, ()=>{
-    console.log('app ready on port 3000')
+app.listen(PORT, ()=>{
+    console.log(`app ready on port ${PORT}`)
 })
