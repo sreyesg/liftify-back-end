@@ -19,7 +19,9 @@ app.use(cors({}))
 app.use('/jwt-test', testJWTRouter)
 app.use('/users', usersRouter)
 app.use('/routines', routinesRouter)
-
+app.get('/', (req, res) => {
+    res.send('Welcome to liftify')
+})
 
 
 
