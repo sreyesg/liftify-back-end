@@ -38,7 +38,7 @@ router.get('/:routineId', async(req, res) => {
     }
 })
 
-router.post('/:routineId', async(req, res) => {
+router.put('/:routineId', async(req, res) => {
     try {
         const routine = await Routine.findById(req.params.routineId)
         if(!routine.author.equals(req.user._id)){
